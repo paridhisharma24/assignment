@@ -2,6 +2,7 @@ from flask import Flask, request
 from connect import create_app, db
 from utils.gen_report import generate_report
 from utils.get_report import get_report
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -19,8 +20,14 @@ def trigger_report():
 def report():
     report_id = request.args.get('report_id')
     new_report = get_report(report_id)
-    # print(new_report)
-    return new_report
+    
+    if not new_report:
+        return "Running"
+    
+    else:
+        df = pd.DataFrame.from_dict(new_report)
+        df.to_csv(r'report.csv', index=False, header=True)
+        return "Completed"
 
 
 if __name__ == '__main__':

@@ -7,6 +7,10 @@ def get_report(report_id):
     reports = db.session.query(report).filter(report.report_id == report_id).all()
 
     repo = {}
+
+    if(reports.count() == 0):
+        return repo
+
     for res in reports:
         rept = []
         dict = {}
