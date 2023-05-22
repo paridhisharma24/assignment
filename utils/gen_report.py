@@ -59,7 +59,7 @@ def generate_report():
                 
                 downtime_last_hour = 1 - uptime_last_hour
 
-            if(day == 6):
+            
                 uptime_prev_day = db.session.query(store_status).filter(
                     store_status.store_id == store_id,
                     store_status.timestamp_utc.between(local_cur_time, local_cur_time - datetime.timedelta(days=1)),
